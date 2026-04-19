@@ -1,0 +1,22 @@
+databases:
+  - name: diary-postgres
+    databaseName: diary_db
+    user: diary_user
+    region: singapore
+
+services:
+  - type: web
+    name: diary-backend
+    runtime: python
+    region: singapore
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: diary-postgres
+          property: connectionString
+      - key: CORS_ORIGINS
+        value: https://diary-frontend.vercel.app
+      - key: PYTHON_VERSION
+        value: 3.10.1
