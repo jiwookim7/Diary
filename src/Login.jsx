@@ -20,7 +20,17 @@ export default function Login({ onLoginSuccess }) {
       localStorage.setItem('userId', response.user_id);
       onLoginSuccess();
     } catch (err) {
-      setError(err.message || '로그인에 실패했습니다');
+      // 에러 메시지를 더 명확하게 표시
+      const errorMessage = err.message || '로그인에 실패했습니다';
+      
+      // 서버 연결 오류와 인증 오류 구분
+      if (errorMessage.includes('서버에 연결할 수 없습니다')) {
+        setError('⚠️ 서버에 연결할 수 없습니다. 서버가 시작되는 중일 수 있습니다 (최대 1분 소요). 잠시 후 다시 시도해주세요.');
+      } else if (errorMessage.includes('401')) {
+        setError('❌ 아이디 또는 비밀번호가 일치하지 않습니다.');
+      } else {
+        setError(`❌ ${errorMessage}`);
+      }
     } finally {
       setIsLoading(false);
     }

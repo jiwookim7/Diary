@@ -208,6 +208,7 @@ function App() {
           <div className="loading-state">
             <div className="spinner"></div>
             <p>일기를 불러오는 중...</p>
+            {items.length === 0 && <p className="loading-hint">서버가 시작 중이라면 최대 1분 정도 걸릴 수 있습니다.</p>}
           </div>
         )}
         

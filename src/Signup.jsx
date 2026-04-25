@@ -27,7 +27,17 @@ export default function Signup() {
       alert('회원가입이 완료되었습니다. 로그인해주세요.');
       window.location.hash = '';
     } catch (err) {
-      setError(err.message || '회원가입에 실패했습니다');
+      // 에러 메시지를 더 명확하게 표시
+      const errorMessage = err.message || '회원가입에 실패했습니다';
+      
+      // 서버 연결 오류와 중복 사용자 오류 구분
+      if (errorMessage.includes('서버에 연결할 수 없습니다')) {
+        setError('⚠️ 서버에 연결할 수 없습니다. 서버가 시작되는 중일 수 있습니다 (최대 1분 소요). 잠시 후 다시 시도해주세요.');
+      } else if (errorMessage.includes('already exists') || errorMessage.includes('400')) {
+        setError('❌ 이미 사용 중인 사용자명입니다. 다른 이름을 선택해주세요.');
+      } else {
+        setError(`❌ ${errorMessage}`);
+      }
     } finally {
       setIsLoading(false);
     }
