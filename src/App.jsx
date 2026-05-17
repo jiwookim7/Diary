@@ -203,12 +203,13 @@ function App() {
         </section>
       )}
 
-      {/* 글 목록 영역 */}
-      <section className={`posts-section ${viewMode === 'dashboard' ? 'dashboard-mode' : ''}`}>
-        <div className="section-header">
-          <div>
-            <h2>{viewMode === 'dashboard' ? '📚 전체 일기 대시보드' : '내 일기'}</h2>
-            <p className="section-subtitle">총 {items.length}개의 일기</p>
+      {/* 글 목록 영역 - dashboard 모드에서만 표시 */}
+      {viewMode === 'dashboard' && (
+        <section className={`posts-section dashboard-mode`}>
+          <div className="section-header">
+            <div>
+              <h2>📚 전체 일기 대시보드</h2>
+              <p className="section-subtitle">총 {items.length}개의 일기</p>
           </div>
           <button type="button" className="refresh-btn" onClick={loadPosts}>
             🔄 새로고침
@@ -263,7 +264,8 @@ function App() {
 
         {/* 에러가 있을 때만 표시 */}
         {error && <p className="error">{error}</p>}
-      </section>
+        </section>
+      )}
 
       {/* 일기 상세보기 모달 */}
       {selectedPost && (
