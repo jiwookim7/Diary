@@ -18,6 +18,8 @@ app = FastAPI(title='Post API', version='1.0.0')
 
 # 프론트(React)에서 요청할 수 있도록 허용할 출처 목록
 allowed_origins = os.getenv('CORS_ORIGINS', 'http://localhost:5173').split(',')
+# Netlify URL 강제 추가
+allowed_origins.append('https://diaryjiwoo.netlify.app')
 app.add_middleware(
   CORSMiddleware,
   allow_origins=[origin.strip() for origin in allowed_origins if origin.strip()],
