@@ -17,6 +17,6 @@ services:
           name: diary-postgres
           property: connectionString
       - key: CORS_ORIGINS
-        value: https://diary-frontend.vercel.app
+        value: https://diaryjiwoo.netlify.app,https://diary-frontend.vercel.app
       - key: PYTHON_VERSION
         value: 3.10.1
