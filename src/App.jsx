@@ -24,6 +24,8 @@ function App() {
   const [username, setUsername] = useState("");
   // 선택된 글 (모달)
   const [selectedPost, setSelectedPost] = useState(null);
+  // 뷰 모드 (normal: 기본, dashboard: 대시보드)
+  const [viewMode, setViewMode] = useState('normal');
 
   // 서버에서 글 목록을 읽어와 화면 상태를 갱신
   const loadPosts = async () => {
@@ -145,6 +147,13 @@ function App() {
           <p className="app-subtitle">당신의 일상을 기록하세요</p>
         </div>
         <div className="header-right">
+          <button 
+            className={`diary-dashboard-btn ${viewMode === 'dashboard' ? 'active' : ''}`}
+            onClick={() => setViewMode(viewMode === 'dashboard' ? 'normal' : 'dashboard')}
+          >
+            <span className="dashboard-icon">📚</span>
+            <span className="dashboard-text">지우 일기장</span>
+          </button>
           <div className="user-badge">
             <span className="user-avatar">👤</span>
             <span className="user-name">{username}</span>
@@ -155,11 +164,12 @@ function App() {
         </div>
       </header>
 
-      {/* 글 작성 영역 */}
-      <section className="write-section">
-        <div className="section-header">
-          <h2>✍️ 새 일기 작성</h2>
-        </div>
+      {/* 글 작성 영역 - dashboard 모드에서는 숨김 */}
+      {viewMode === 'normal' && (
+        <section className="write-section">
+          <div className="section-header">
+            <h2>✍️ 새 일기 작성</h2>
+          </div>
         <form onSubmit={handleSubmit} className="write-form">
           <div className="form-group">
             <label htmlFor="title">제목</label>
@@ -190,13 +200,14 @@ function App() {
             {submitting ? "💾 저장 중..." : "📝 일기 저장"}
           </button>
         </form>
-      </section>
+        </section>
+      )}
 
       {/* 글 목록 영역 */}
-      <section className="posts-section">
+      <section className={`posts-section ${viewMode === 'dashboard' ? 'dashboard-mode' : ''}`}>
         <div className="section-header">
           <div>
-            <h2>내 일기</h2>
+            <h2>{viewMode === 'dashboard' ? '📚 전체 일기 대시보드' : '내 일기'}</h2>
             <p className="section-subtitle">총 {items.length}개의 일기</p>
           </div>
           <button type="button" className="refresh-btn" onClick={loadPosts}>

@@ -61,6 +61,55 @@
   font-size: 18px;
 }
 
+/* 지우 일기장 대시보드 버튼 */
+.diary-dashboard-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+}
+
+.diary-dashboard-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 25px rgba(251, 191, 36, 0.5);
+}
+
+.diary-dashboard-btn.active {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.diary-dashboard-btn.active:hover {
+  box-shadow: 0 6px 25px rgba(16, 185, 129, 0.5);
+}
+
+.dashboard-icon {
+  font-size: 18px;
+  animation: bounce 2s infinite;
+}
+
+.dashboard-text {
+  font-size: 14px;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
 .logout-btn {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
@@ -422,5 +471,73 @@
   .logout-btn {
     padding: 8px 16px;
     font-size: 13px;
+  }
+}
+
+/* 대시보드 모드 스타일 */
+.posts-section.dashboard-mode {
+  max-width: 100%;
+  padding: 30px;
+  min-height: calc(100vh - 100px);
+}
+
+.posts-section.dashboard-mode .section-header {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+}
+
+.posts-section.dashboard-mode .section-header h2 {
+  font-size: 28px;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.posts-section.dashboard-mode .posts-grid {
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.posts-section.dashboard-mode .post-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.posts-section.dashboard-mode .post-card:hover {
+  border-color: #fbbf24;
+  box-shadow: 0 12px 40px rgba(251, 191, 36, 0.2);
+}
+
+/* 반응형 - 대시보드 모드 */
+@media (max-width: 768px) {
+  .diary-dashboard-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .dashboard-icon {
+    font-size: 16px;
+  }
+
+  .posts-section.dashboard-mode {
+    padding: 20px;
+  }
+
+  .posts-section.dashboard-mode .section-header {
+    padding: 16px 20px;
+  }
+
+  .posts-section.dashboard-mode .section-header h2 {
+    font-size: 22px;
+  }
+
+  .posts-section.dashboard-mode .posts-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 }
